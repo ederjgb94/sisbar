@@ -12,7 +12,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.TEST;
+  static const INITIAL = Routes.MYCART;
 
   static final routes = [
     GetPage(
