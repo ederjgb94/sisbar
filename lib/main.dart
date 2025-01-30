@@ -14,9 +14,7 @@ void main() {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       theme: ThemeData(
-        textTheme: TextTheme(
-          bodyMedium: GoogleFonts.rubik(),
-        ),
+        textTheme: GoogleFonts.rubikTextTheme(),
       ),
     ),
   );

@@ -130,7 +130,7 @@ class MycartController extends GetxController {
 
   @override
   void onInit() {
-    if (kDebugMode) testProduct();
+    testProduct();
     super.onInit();
   }
 }
