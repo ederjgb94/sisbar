@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "755711330598",
+    "firebase_url": "https://sisbar-colab-default-rtdb.firebaseio.com",
+    "project_id": "sisbar-colab",
+    "storage_bucket": "sisbar-colab.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755711330598:android:090969e071eb4a397559e7",
+        "android_client_info": {
+          "package_name": "com.example.sisbar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzfXtSWmQT30fFbDRVmV53qVBLujt9ESc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
