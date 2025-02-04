@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../controllers/mycart_controller.dart';
 
-class CartBottomBarWidget extends StatelessWidget {
+class CartBottomBarWidget extends GetView<MycartController> {
   final double total;
 
   const CartBottomBarWidget({super.key, required this.total});
@@ -31,7 +33,7 @@ class CartBottomBarWidget extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    '\$${total.toStringAsFixed(2)}',
+                    '\$${controller.total.toStringAsFixed(2)}',
                     style: const TextStyle(
                       fontSize: 38,
                       fontWeight: FontWeight.bold,

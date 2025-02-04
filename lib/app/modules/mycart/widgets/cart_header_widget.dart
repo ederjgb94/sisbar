@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
-class CartHeaderWidget extends StatelessWidget {
+import '../controllers/mycart_controller.dart';
+
+class CartHeaderWidget extends GetView<MycartController> {
   const CartHeaderWidget({super.key});
 
   @override
@@ -34,7 +37,9 @@ class CartHeaderWidget extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 elevation: 0,
               ),
-              onPressed: () {},
+              onPressed: () {
+                controller.addTestProduct();
+              },
               child: Icon(Symbols.settings, color: Colors.white, size: 28),
             ),
           ],

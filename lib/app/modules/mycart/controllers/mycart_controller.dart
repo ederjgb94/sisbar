@@ -1,136 +1,89 @@
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-
-import '../../../data/product.dart';
+import 'package:sisbar/app/data/models/product.dart';
 
 class MycartController extends GetxController {
-  List<Product> products = <Product>[].obs;
+  var total = 0.0.obs;
+  var items = <CartItem>[].obs;
 
-  void testProduct() {
-    products.add(
-      Product(
-        code: '1',
-        name: 'Aceite Capilla 400ml',
-        price: 20.0,
-        codeType: CodeType.UPC,
-        imageUrl: '',
-        category: '',
-      ),
-    );
-    products.add(
-      Product(
-        code: '2',
-        name: 'Cola Cola 600ml',
-        price: 21.0,
-        codeType: CodeType.UPC,
-        imageUrl: '',
-        category: '',
-      ),
-    );
-    products.add(
-      Product(
-        code: '3',
-        name: 'Sabritas Bolzaza 68g',
-        price: 25.0,
-        codeType: CodeType.UPC,
-        imageUrl: '',
-        category: '',
-      ),
-    );
-    products.add(
-      Product(
-        code: '3',
-        name: 'Pepsi 600ml',
-        price: 16.0,
-        codeType: CodeType.UPC,
-        imageUrl: '',
-        category: '',
-      ),
-    );
-    products.add(
-      Product(
-        code: '3',
-        name: 'Pepsi 1.5l',
-        price: 22.0,
-        codeType: CodeType.UPC,
-        imageUrl: '',
-        category: '',
-      ),
-    );
+  void findProductByCode(String code) {}
 
-    products.add(
-      Product(
-        code: '3',
-        name: 'Pepsi 2.5l',
-        price: 32.0,
-        codeType: CodeType.UPC,
-        imageUrl: '',
-        category: '',
-      ),
-    );
-    products.add(
-      Product(
-        code: '3',
-        name: 'Coca Cola 3l',
-        price: 50.0,
-        codeType: CodeType.UPC,
-        imageUrl: '',
-        category: '',
-      ),
-    );
-    products.add(
-      Product(
-        code: '3',
-        name: 'Heladito',
-        price: 16.0,
-        codeType: CodeType.UPC,
-        imageUrl: '',
-        category: '',
-      ),
-    );
-    products.add(
-      Product(
-        code: '3',
-        name: 'Queso 1/4',
-        price: 19.0,
-        codeType: CodeType.UPC,
-        imageUrl: '',
-        category: '',
-      ),
-    );
-    products.add(
-      Product(
-        code: '3',
-        name: 'Queso 1/2',
-        price: 31.0,
-        codeType: CodeType.UPC,
-        imageUrl: '',
-        category: '',
-      ),
-    );
-    products.add(
-      Product(
-        code: '3',
-        name: 'Queso Entero',
-        price: 70.0,
-        codeType: CodeType.UPC,
-        imageUrl: '',
-        category: '',
-      ),
+  void addTestProduct() {
+    var product = Product.factory().create();
+    addProduct(
+      product.code,
+      product.name,
+      product.price,
+      product.imageUrl,
+      product.category,
+      product.codeType,
     );
   }
 
-  obtenerTotal() {
-    double total = 0;
-    for (var product in products) {
-      total += product.price;
+  void addProduct(
+    String code,
+    String name,
+    double price,
+    String imageUrl,
+    String category,
+    CodeType codeType,
+  ) {
+    var product = Product(
+      code: code,
+      name: name,
+      price: price,
+      imageUrl: imageUrl,
+      category: category,
+      codeType: codeType,
+    );
+
+    // Buscar si el producto ya existe en el carrito
+    CartItem? existingItem = items.firstWhereOrNull(
+      (element) => element.product.code == product.code,
+    );
+
+    if (existingItem != null) {
+      incrementQuantity(existingItem);
+    } else {
+      var newItem = CartItem(product);
+      items.add(newItem);
+      total.value += product.price;
     }
-    return total;
   }
 
-  @override
-  void onInit() {
-    testProduct();
-    super.onInit();
+  void checkout() {
+    total.value = 0.0;
+    Get.snackbar('Compra realizada', 'Gracias por su compra');
   }
+
+  void clearCart() {
+    items.clear();
+    total.value = 0.0;
+  }
+
+  void decrementQuantity(CartItem item) {
+    item.quantity -= 1;
+    if (item.quantity.value == 0) {
+      items.remove(item);
+    } else {
+      total.value -= item.product.price;
+    }
+  }
+
+  void incrementQuantity(CartItem item) {
+    item.quantity += 1;
+    if (item.quantity.value == 1) {
+      items.add(item);
+    } else {
+      total.value += item.product.price;
+    }
+  }
+}
+
+class CartItem {
+  Product product;
+  var quantity = 1.obs;
+
+  CartItem(
+    this.product,
+  );
 }

@@ -12,7 +12,7 @@ class MycartView extends GetView<MycartController> {
 
   @override
   Widget build(BuildContext context) {
-    var products = controller.products;
+    var items = controller.items;
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
@@ -23,23 +23,23 @@ class MycartView extends GetView<MycartController> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          children: [
-            for (var product in products)
-              ProductWidget(
-                code: product.code,
-                name: product.name,
-                price: product.price,
-                quantity: Random().nextInt(3) + 1,
-              ),
-            SizedBox(height: 200),
-          ],
+        child: Obx(() => Column(
+              children: [
+                for (var item in items)
+                  ProductWidget(
+                    cartItem: item,
+                  ),
+                SizedBox(height: 200),
+              ],
+            )),
+      ),
+      bottomNavigationBar: Obx(
+        () => CartBottomBarWidget(
+          total: controller.total.value,
         ),
       ),
-      bottomNavigationBar:
-          CartBottomBarWidget(total: controller.obtenerTotal()),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: const CartFloatingButtonsWidget(),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: const CartFloatingButtonsWidget(),
     );
   }
 }
