@@ -14,7 +14,7 @@ class CartBottomBarWidget extends GetView<MycartController> {
       margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
       decoration: BoxDecoration(
         color: Colors.indigo.shade50,
-        borderRadius: BorderRadius.circular(40),
+        borderRadius: BorderRadius.circular(80),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -27,8 +27,13 @@ class CartBottomBarWidget extends GetView<MycartController> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red[300],
                   elevation: 0,
+                  padding: const EdgeInsets.all(15),
                 ),
-                child: Icon(Icons.close, size: 32, color: Colors.white),
+                child: Icon(
+                  Icons.close,
+                  size: 32,
+                  color: Colors.grey[100],
+                ),
               ),
               Column(
                 children: [
@@ -51,12 +56,16 @@ class CartBottomBarWidget extends GetView<MycartController> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue[300],
+                  backgroundColor: Colors.yellow[600],
                   elevation: 0,
+                  padding: const EdgeInsets.all(15),
                 ),
                 onPressed: () {},
-                child: Icon(Icons.attach_money_outlined,
-                    color: Colors.white, size: 32),
+                child: Icon(
+                  Icons.attach_money_outlined,
+                  color: Colors.grey[900],
+                  size: 32,
+                ),
               ),
             ],
           ),

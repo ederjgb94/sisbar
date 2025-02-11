@@ -4,8 +4,7 @@ import 'package:sisbar/app/data/models/product.dart';
 class MycartController extends GetxController {
   var total = 0.0.obs;
   var items = <CartItem>[].obs;
-
-  void findProductByCode(String code) {}
+  Rx<CartItem?> selectedCartItem = Rx<CartItem?>(null);
 
   void addTestProduct() {
     var product = Product.factory().create();
@@ -37,9 +36,7 @@ class MycartController extends GetxController {
     );
 
     // Buscar si el producto ya existe en el carrito
-    CartItem? existingItem = items.firstWhereOrNull(
-      (element) => element.product.code == product.code,
-    );
+    CartItem? existingItem = findProductInCart(product);
 
     if (existingItem != null) {
       incrementQuantity(existingItem);
@@ -49,6 +46,10 @@ class MycartController extends GetxController {
       total.value += product.price;
     }
   }
+
+  CartItem? findProductInCart(Product product) => items.firstWhereOrNull(
+        (element) => element.product.code == product.code,
+      );
 
   void checkout() {
     total.value = 0.0;
@@ -77,11 +78,16 @@ class MycartController extends GetxController {
       total.value += item.product.price;
     }
   }
+
+  void selectCartItem(CartItem item) {
+    selectedCartItem.value = item;
+  }
 }
 
 class CartItem {
   Product product;
   var quantity = 1.obs;
+  var isSelected = false.obs;
 
   CartItem(
     this.product,

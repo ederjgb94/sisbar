@@ -1,5 +1,5 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../controllers/mycart_controller.dart';
 import '../widgets/cart_bottom_bar_widget.dart';
@@ -15,21 +15,30 @@ class MycartView extends GetView<MycartController> {
     var items = controller.items;
     return Scaffold(
       extendBody: true,
+      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
-        forceMaterialTransparency: true,
         titleSpacing: 10,
+        scrolledUnderElevation: 0,
         title: const CartHeaderWidget(),
-        toolbarHeight: 120,
+        toolbarHeight: 100,
+        backgroundColor: Colors.grey.shade50,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.grey.shade50,
+          statusBarIconBrightness: Brightness.dark,
+        ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        //cambia las fisicas del scroll
+        // physics: ClampingScrollPhysics(),
+
         child: Obx(() => Column(
               children: [
                 for (var item in items)
                   ProductWidget(
                     cartItem: item,
                   ),
-                SizedBox(height: 200),
+                SizedBox(height: 255),
               ],
             )),
       ),
@@ -38,8 +47,8 @@ class MycartView extends GetView<MycartController> {
           total: controller.total.value,
         ),
       ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      // floatingActionButton: const CartFloatingButtonsWidget(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: const CartFloatingButtonsWidget(),
     );
   }
 }
