@@ -29,9 +29,6 @@ class MycartView extends GetView<MycartController> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 10),
-        //cambia las fisicas del scroll
-        // physics: ClampingScrollPhysics(),
-
         child: Obx(() => Column(
               children: [
                 for (var item in items)
@@ -42,11 +39,7 @@ class MycartView extends GetView<MycartController> {
               ],
             )),
       ),
-      bottomNavigationBar: Obx(
-        () => CartBottomBarWidget(
-          total: controller.total.value,
-        ),
-      ),
+      bottomNavigationBar: CartBottomBarWidget(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: const CartFloatingButtonsWidget(),
     );

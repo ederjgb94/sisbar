@@ -1,0 +1,2 @@
+/Users/ederjahirgonzalezbravo/proyectos/sisbar/android/app/.cxx/Debug/2y2z2n40/x86_64/CMakeFiles/edit_cache.dir
+/Users/ederjahirgonzalezbravo/proyectos/sisbar/android/app/.cxx/Debug/2y2z2n40/x86_64/CMakeFiles/rebuild_cache.dir

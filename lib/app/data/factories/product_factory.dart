@@ -2,10 +2,24 @@ import '../models/product.dart';
 import 'base_factory.dart';
 
 class ProductFactory extends Factory<Product> {
-  static final ProductFactory _instance = ProductFactory._internal();
+  Function addItem;
 
-  factory ProductFactory() => _instance;
-  ProductFactory._internal();
+  ProductFactory({
+    required this.addItem,
+  });
+
+  void addProducts(int count) {
+    createMany(count).forEach((product) {
+      addItem(
+        product.code,
+        product.name,
+        product.price,
+        product.imageUrl,
+        product.category,
+        product.codeType,
+      );
+    });
+  }
 
   @override
   Product create() {

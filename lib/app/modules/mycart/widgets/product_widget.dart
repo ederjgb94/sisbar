@@ -52,7 +52,7 @@ class ProductWidget extends GetView<MycartController> {
                   ),
                 ),
                 SizedBox(
-                  width: 100,
+                  width: 110,
                   child: Text(
                     '\$${(cartItem.product.price * cartItem.quantity.value).toStringAsFixed(2)}',
                     style: const TextStyle(fontSize: 23),

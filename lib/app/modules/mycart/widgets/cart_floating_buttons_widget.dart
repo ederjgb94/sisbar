@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:get/get.dart';
 
-class CartFloatingButtonsWidget extends StatelessWidget {
+import '../controllers/mycart_controller.dart';
+import 'price_change_dialog.dart';
+
+class CartFloatingButtonsWidget extends GetView<MycartController> {
   const CartFloatingButtonsWidget({super.key});
 
   @override
@@ -21,33 +24,40 @@ class CartFloatingButtonsWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 10,
               children: [
-                SizedBox(
-                  height: 75,
-                  width: 75,
-                  child: FloatingActionButton(
-                    elevation: 0,
-                    backgroundColor: Colors.teal[500],
-                    onPressed: () {},
-                    child: Icon(
-                      Symbols.remove,
-                      color: Colors.white,
-                      size: 35,
-                    ),
-                  ),
+                CartFloatingButton(
+                  icon: Icons.delete,
+                  color: Colors.grey[600],
+                  onPressed: () {
+                    controller.removeSelectedItem();
+                  },
                 ),
-                SizedBox(
-                  height: 75,
-                  width: 75,
-                  child: FloatingActionButton(
-                    elevation: 0,
-                    backgroundColor: Colors.teal[500],
-                    onPressed: () {},
-                    child: Icon(
-                      Symbols.add,
-                      size: 35,
-                      color: Colors.white,
-                    ),
-                  ),
+                CartFloatingButton(
+                  icon: Icons.remove,
+                  color: Colors.teal[500],
+                  onPressed: () {
+                    controller.selectedCarItemDecrement();
+                  },
+                ),
+                CartFloatingButton(
+                  icon: Icons.add,
+                  color: Colors.teal[500],
+                  onPressed: () {
+                    controller.selectedCarItemIncrement();
+                  },
+                ),
+                CartFloatingButton(
+                  icon: Icons.edit,
+                  color: Colors.teal[500],
+                  onPressed: () async {
+                    if (controller.selectedCartItem.value != null) {
+                      var item = controller.selectedCartItem.value!;
+                      var price = await editPriceDialog(
+                        name: item.product.name,
+                        price: item.product.price,
+                      );
+                      controller.updatePrice(price, item);
+                    }
+                  },
                 ),
               ],
             ),
@@ -55,37 +65,52 @@ class CartFloatingButtonsWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               spacing: 10,
               children: [
-                SizedBox(
-                  height: 75,
-                  width: 75,
-                  child: FloatingActionButton(
-                    elevation: 0,
-                    backgroundColor: Colors.indigo[400],
-                    onPressed: () {},
-                    child: Icon(
-                      Symbols.search,
-                      color: Colors.white,
-                      size: 35,
-                    ),
-                  ),
+                CartFloatingButton(
+                  icon: Icons.search,
+                  color: Colors.indigo[400],
+                  onPressed: () {},
                 ),
-                SizedBox(
-                  height: 75,
-                  width: 75,
-                  child: FloatingActionButton(
-                    elevation: 0,
-                    backgroundColor: Colors.indigo[400],
-                    onPressed: () {},
-                    child: Icon(
-                      Symbols.camera_alt,
-                      size: 35,
-                      color: Colors.white,
-                    ),
-                  ),
+                CartFloatingButton(
+                  icon: Icons.camera_alt,
+                  color: Colors.indigo[400],
+                  onPressed: () {},
                 ),
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class CartFloatingButton extends StatelessWidget {
+  final IconData icon;
+  final Color? color;
+  final Function onPressed;
+
+  const CartFloatingButton({
+    super.key,
+    required this.icon,
+    required this.color,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 65,
+      width: 65,
+      child: FloatingActionButton(
+        elevation: 0,
+        backgroundColor: color,
+        onPressed: () {
+          onPressed();
+        },
+        child: Icon(
+          icon,
+          color: Colors.white,
+          size: 35,
         ),
       ),
     );

@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:sisbar/app/data/factories/product_factory.dart';
 import 'package:sisbar/app/data/models/product.dart';
 
 class MycartController extends GetxController {
@@ -6,16 +8,29 @@ class MycartController extends GetxController {
   var items = <CartItem>[].obs;
   Rx<CartItem?> selectedCartItem = Rx<CartItem?>(null);
 
-  void addTestProduct() {
-    var product = Product.factory().create();
-    addProduct(
-      product.code,
-      product.name,
-      product.price,
-      product.imageUrl,
-      product.category,
-      product.codeType,
-    );
+  @override
+  void onInit() {
+    super.onInit();
+    if (kDebugMode) {
+      ProductFactory(addItem: addProduct).addProducts(10);
+    }
+  }
+
+  void updatePrice(double newPrice, CartItem item) {
+    item.product.price = newPrice;
+    items.refresh();
+  }
+
+  void selectedCarItemIncrement() {
+    if (selectedCartItem.value != null) {
+      incrementQuantity(selectedCartItem.value!);
+    }
+  }
+
+  void selectedCarItemDecrement() {
+    if (selectedCartItem.value != null) {
+      decrementQuantity(selectedCartItem.value!);
+    }
   }
 
   void addProduct(
@@ -35,7 +50,6 @@ class MycartController extends GetxController {
       codeType: codeType,
     );
 
-    // Buscar si el producto ya existe en el carrito
     CartItem? existingItem = findProductInCart(product);
 
     if (existingItem != null) {
@@ -62,12 +76,14 @@ class MycartController extends GetxController {
   }
 
   void decrementQuantity(CartItem item) {
+    if (item.quantity.value == 1) return;
     item.quantity -= 1;
     if (item.quantity.value == 0) {
       items.remove(item);
-    } else {
-      total.value -= item.product.price;
+      selectedCartItem.value = null;
     }
+    total.value -= item.product.price;
+    total.value = total.value.abs();
   }
 
   void incrementQuantity(CartItem item) {
@@ -81,6 +97,17 @@ class MycartController extends GetxController {
 
   void selectCartItem(CartItem item) {
     selectedCartItem.value = item;
+  }
+
+  void removeSelectedItem() {
+    if (selectedCartItem.value != null) {
+      items.remove(selectedCartItem.value);
+      total.value -= selectedCartItem.value!.product.price *
+          selectedCartItem.value!.quantity.value;
+
+      total.value = total.value.abs();
+      selectedCartItem.value = null;
+    }
   }
 }
 

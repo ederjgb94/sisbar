@@ -1,9 +1,6 @@
-import '../factories/product_factory.dart';
-import 'base_model.dart';
-
 enum CodeType { UPC, EAN, ISBN }
 
-class Product with Model {
+class Product {
   String code;
   CodeType codeType;
   String name;
@@ -43,8 +40,4 @@ class Product with Model {
         },
         'price': price,
       };
-
-  static ProductFactory factory() {
-    return ProductFactory();
-  }
 }

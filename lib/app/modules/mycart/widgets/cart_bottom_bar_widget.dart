@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import '../controllers/mycart_controller.dart';
 
 class CartBottomBarWidget extends GetView<MycartController> {
-  final double total;
-
-  const CartBottomBarWidget({super.key, required this.total});
+  const CartBottomBarWidget({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +37,18 @@ class CartBottomBarWidget extends GetView<MycartController> {
               ),
               Column(
                 children: [
-                  Text(
-                    '\$${controller.total.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      fontSize: 38,
-                      fontWeight: FontWeight.bold,
+                  Obx(
+                    () => Text(
+                      '\$${controller.total.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        fontSize: 38,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   Text(
-                    'TOTAL',
-                    style: const TextStyle(
+                    'Total a Pagar',
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 5,
@@ -56,15 +58,19 @@ class CartBottomBarWidget extends GetView<MycartController> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.yellow[600],
+                  backgroundColor: Colors.yellow[800],
                   elevation: 0,
-                  padding: const EdgeInsets.all(15),
+                  // side: BorderSide(
+                  //   color: Colors.grey,
+                  //   width: 10,
+                  // ),
+                  padding: const EdgeInsets.all(13),
                 ),
                 onPressed: () {},
                 child: Icon(
-                  Icons.attach_money_outlined,
-                  color: Colors.grey[900],
-                  size: 32,
+                  Icons.monetization_on,
+                  color: Colors.white,
+                  size: 38,
                 ),
               ),
             ],
