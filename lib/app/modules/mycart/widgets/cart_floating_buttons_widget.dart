@@ -9,11 +9,13 @@ class CartFloatingButtonsWidget extends GetView<MycartController> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-      ),
-      child: SizedBox(
+    return SizedBox(
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          vertical: 5,
+          horizontal: 20,
+        ),
+        color: Colors.transparent,
         width: double.infinity,
         child: Wrap(
           alignment: WrapAlignment.spaceBetween,
@@ -51,10 +53,11 @@ class CartFloatingButtonsWidget extends GetView<MycartController> {
                   onPressed: () async {
                     if (controller.selectedCartItem.value != null) {
                       var item = controller.selectedCartItem.value!;
-                      var price = await editPriceDialog(
+                      double? price = await editPriceDialog(
                         name: item.product.name,
                         price: item.product.price,
                       );
+
                       controller.updatePrice(price, item);
                     }
                   },

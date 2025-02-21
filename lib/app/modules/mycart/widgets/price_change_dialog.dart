@@ -12,14 +12,9 @@ Future<double> editPriceDialog({
   TextEditingController priceController = TextEditingController(
     text: price.toString(),
   );
+  bool result = false;
 
-  submitPrice() => Get.back(
-        result: double.parse(
-          priceController.text.replaceAll(',', ''),
-        ),
-      );
-
-  return await Get.dialog(
+  await Get.dialog(
     UnconstrainedBox(
       child: SizedBox(
         width: 400,
@@ -45,7 +40,8 @@ Future<double> editPriceDialog({
                   }
                 },
                 onSubmitted: (value) {
-                  submitPrice();
+                  result = true;
+                  Get.back();
                 },
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
@@ -76,37 +72,41 @@ Future<double> editPriceDialog({
           ),
           actionsAlignment: MainAxisAlignment.spaceBetween,
           actions: [
-            ElevatedButton(
+            ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red[300],
+                iconColor: Colors.white,
+                foregroundColor: Colors.white,
               ),
               onPressed: () {
                 Get.back();
               },
-              child: Icon(
-                Icons.close,
-                color: Colors.white,
-                size: 32,
-              ),
+              label: Text('Cancelar'),
+              icon: Icon(Icons.close),
             ),
-            ElevatedButton(
+            ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange[600],
+                backgroundColor: Colors.indigo[400],
+                iconColor: Colors.white,
+                foregroundColor: Colors.white,
               ),
               onPressed: () {
-                submitPrice();
+                result = true;
+                Get.back();
               },
-              child: Icon(
-                Icons.attach_money,
-                color: Colors.white,
-                size: 32,
-              ),
+              label: Text('Guardar'),
+              icon: Icon(Icons.save),
             ),
           ],
         ),
       ),
     ),
   );
+  return result
+      ? double.parse(
+          priceController.text.replaceAll(',', ''),
+        )
+      : price;
 }
 
 class _CurrencyInputFormatter extends TextInputFormatter {

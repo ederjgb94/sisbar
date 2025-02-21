@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:sisbar/app/data/factories/product_factory.dart';
 import 'package:sisbar/app/data/models/product.dart';
 
+import '../../../routes/app_pages.dart';
+
 class MycartController extends GetxController {
   var total = 0.0.obs;
   var items = <CartItem>[].obs;
@@ -108,6 +110,10 @@ class MycartController extends GetxController {
       total.value = total.value.abs();
       selectedCartItem.value = null;
     }
+  }
+
+  Future<void> getProductByCode() async {
+    String code = await Get.to(Routes.CAMERA);
   }
 }
 

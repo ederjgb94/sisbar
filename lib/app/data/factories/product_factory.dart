@@ -2,15 +2,15 @@ import '../models/product.dart';
 import 'base_factory.dart';
 
 class ProductFactory extends Factory<Product> {
-  Function addItem;
+  final Function? addItem;
 
   ProductFactory({
-    required this.addItem,
+    this.addItem,
   });
 
   void addProducts(int count) {
     createMany(count).forEach((product) {
-      addItem(
+      addItem!(
         product.code,
         product.name,
         product.price,

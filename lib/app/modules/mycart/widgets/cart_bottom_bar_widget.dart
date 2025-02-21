@@ -11,7 +11,7 @@ class CartBottomBarWidget extends GetView<MycartController> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
+      margin: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       decoration: BoxDecoration(
         color: Colors.indigo.shade50,
         borderRadius: BorderRadius.circular(80),

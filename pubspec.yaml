@@ -39,6 +39,7 @@ dependencies:
   material_symbols_icons: ^4.2801.1
   faker: ^2.2.0
   intl: ^0.20.2
+  get_cli: ^1.8.1
 
 dev_dependencies:
   flutter_test:

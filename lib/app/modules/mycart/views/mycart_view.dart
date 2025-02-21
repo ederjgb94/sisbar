@@ -29,15 +29,17 @@ class MycartView extends GetView<MycartController> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Obx(() => Column(
-              children: [
-                for (var item in items)
-                  ProductWidget(
-                    cartItem: item,
-                  ),
-                SizedBox(height: 255),
-              ],
-            )),
+        child: Obx(
+          () => Column(
+            children: [
+              for (var item in items)
+                ProductWidget(
+                  cartItem: item,
+                ),
+              SizedBox(height: 255),
+            ],
+          ),
+        ),
       ),
       bottomNavigationBar: CartBottomBarWidget(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
