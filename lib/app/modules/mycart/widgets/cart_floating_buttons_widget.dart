@@ -30,7 +30,7 @@ class CartFloatingButtonsWidget extends GetView<MycartController> {
                   icon: Icons.delete,
                   color: Colors.grey[600],
                   onPressed: () {
-                    controller.removeSelectedItem();
+                    controller.startRemoveSelectedItem();
                   },
                 ),
                 CartFloatingButton(

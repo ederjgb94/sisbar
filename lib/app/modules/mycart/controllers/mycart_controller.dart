@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:sisbar/app/data/factories/product_factory.dart';
 import 'package:sisbar/app/data/models/product.dart';
+import 'package:sisbar/app/widgets/confirm_dialog.dart';
 
 import '../../../routes/app_pages.dart';
 
@@ -70,6 +71,24 @@ class MycartController extends GetxController {
   void checkout() {
     total.value = 0.0;
     Get.snackbar('Compra realizada', 'Gracias por su compra');
+  }
+
+  void startRemoveSelectedItem() {
+    confirmDialog(
+      content: selectedCartItem.value!.product.name,
+      title: '¿Quitamos este producto?',
+      confirmAction: removeSelectedItem,
+    );
+  }
+
+  void startClearCart() {
+    Get.defaultDialog(
+      title: '¿Está seguro de que desea vaciar el carrito?',
+      middleText: 'Presione "Si" para confirmar',
+      textConfirm: 'Si',
+      textCancel: 'No',
+      onConfirm: clearCart,
+    );
   }
 
   void clearCart() {

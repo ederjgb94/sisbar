@@ -15,9 +15,11 @@ Future<double> editPriceDialog({
   bool result = false;
 
   await Get.dialog(
+    barrierColor: Colors.black87,
+    barrierDismissible: false,
     UnconstrainedBox(
       child: SizedBox(
-        width: 400,
+        width: 450,
         child: AlertDialog(
           title: Text(
             name,
@@ -25,6 +27,7 @@ Future<double> editPriceDialog({
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontWeight: FontWeight.bold,
+              fontSize: 24,
             ),
           ),
           content: Column(
@@ -72,30 +75,52 @@ Future<double> editPriceDialog({
           ),
           actionsAlignment: MainAxisAlignment.spaceBetween,
           actions: [
-            ElevatedButton.icon(
+            ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red[300],
                 iconColor: Colors.white,
                 foregroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(
+                  vertical: 15,
+                  horizontal: 30,
+                ),
               ),
               onPressed: () {
                 Get.back();
               },
-              label: Text('Cancelar'),
-              icon: Icon(Icons.close),
+              child: Text(
+                'Cancelar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              // icon: Icon(Icons.close),
             ),
-            ElevatedButton.icon(
+            ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.indigo[400],
                 iconColor: Colors.white,
                 foregroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(
+                  vertical: 15,
+                  horizontal: 30,
+                ),
               ),
               onPressed: () {
                 result = true;
                 Get.back();
               },
-              label: Text('Guardar'),
-              icon: Icon(Icons.save),
+              child: Text(
+                'Guardar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              // icon: Icon(Icons.save),
             ),
           ],
         ),

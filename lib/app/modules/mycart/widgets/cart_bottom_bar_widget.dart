@@ -23,7 +23,9 @@ class CartBottomBarWidget extends GetView<MycartController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  controller.startClearCart();
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red[300],
                   elevation: 0,

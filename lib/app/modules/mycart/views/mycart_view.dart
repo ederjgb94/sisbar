@@ -23,7 +23,7 @@ class MycartView extends GetView<MycartController> {
         toolbarHeight: 100,
         backgroundColor: Colors.grey.shade50,
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.grey.shade50,
+          statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.dark,
         ),
       ),
