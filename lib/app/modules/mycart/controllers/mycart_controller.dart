@@ -129,8 +129,8 @@ class MycartController extends GetxController {
     }
   }
 
-  Future<void> getProductByCode() async {
-    String code = await Get.to(Routes.CAMERA);
+  void getProductByCamera() {
+    Get.toNamed(Routes.CAMERA);
   }
 }
 

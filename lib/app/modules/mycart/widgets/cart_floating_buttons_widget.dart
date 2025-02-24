@@ -76,7 +76,9 @@ class CartFloatingButtonsWidget extends GetView<MycartController> {
                 CartFloatingButton(
                   icon: Icons.camera_alt,
                   color: Colors.indigo[400],
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.getProductByCamera();
+                  },
                 ),
               ],
             ),
