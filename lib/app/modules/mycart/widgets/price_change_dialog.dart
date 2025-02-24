@@ -1,5 +1,3 @@
-//crea un dialogo para cambiar el precio de un producto
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sisbar/app/widgets/confirm_dialog.dart';
 import '../controllers/mycart_controller.dart';
 
 class CartBottomBarWidget extends GetView<MycartController> {
@@ -62,10 +63,6 @@ class CartBottomBarWidget extends GetView<MycartController> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.yellow[800],
                   elevation: 0,
-                  // side: BorderSide(
-                  //   color: Colors.grey,
-                  //   width: 10,
-                  // ),
                   padding: const EdgeInsets.all(13),
                 ),
                 onPressed: () {},

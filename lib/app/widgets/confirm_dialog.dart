@@ -17,11 +17,13 @@ void confirmDialog({
       content: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            content,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+          Expanded(
+            child: Text(
+              content,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],

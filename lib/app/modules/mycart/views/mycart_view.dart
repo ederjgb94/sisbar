@@ -14,6 +14,7 @@ class MycartView extends GetView<MycartController> {
   Widget build(BuildContext context) {
     var items = controller.items;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       extendBody: true,
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(

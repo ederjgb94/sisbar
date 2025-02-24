@@ -82,12 +82,10 @@ class MycartController extends GetxController {
   }
 
   void startClearCart() {
-    Get.defaultDialog(
-      title: '¿Está seguro de que desea vaciar el carrito?',
-      middleText: 'Presione "Si" para confirmar',
-      textConfirm: 'Si',
-      textCancel: 'No',
-      onConfirm: clearCart,
+    confirmDialog(
+      title: 'Cancelamos la venta',
+      content: '¿Está seguro?',
+      confirmAction: clearCart,
     );
   }
 
