@@ -107,6 +107,7 @@ class CartFloatingButton extends StatelessWidget {
       height: 65,
       width: 65,
       child: FloatingActionButton(
+        heroTag: UniqueKey(),
         elevation: 0,
         backgroundColor: color,
         onPressed: () {
