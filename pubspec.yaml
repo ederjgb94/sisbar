@@ -40,6 +40,9 @@ dependencies:
   faker: ^2.2.0
   intl: ^0.20.2
   get_cli: ^1.8.1
+  # barcode_scan2: ^4.5.0
+  mobile_scanner: ^6.0.6
+  delayed_display: ^2.0.0
 
 dev_dependencies:
   flutter_test:

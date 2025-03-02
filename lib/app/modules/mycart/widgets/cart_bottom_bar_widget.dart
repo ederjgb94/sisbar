@@ -41,7 +41,7 @@ class CartBottomBarWidget extends GetView<MycartController> {
                 children: [
                   Obx(
                     () => Text(
-                      '\$${controller.total.toStringAsFixed(2)}',
+                      '\$${controller.totalAmount.toStringAsFixed(2)}',
                       style: const TextStyle(
                         fontSize: 38,
                         fontWeight: FontWeight.bold,

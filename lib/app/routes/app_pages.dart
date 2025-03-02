@@ -2,8 +2,6 @@ import 'package:get/get.dart';
 
 import '../modules/calculator/bindings/calculator_binding.dart';
 import '../modules/calculator/views/calculator_view.dart';
-import '../modules/camera/bindings/camera_binding.dart';
-import '../modules/camera/views/camera_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/mycart/bindings/mycart_binding.dart';
@@ -38,11 +36,6 @@ class AppPages {
       name: _Paths.CALCULATOR,
       page: () => const CalculatorView(),
       binding: CalculatorBinding(),
-    ),
-    GetPage(
-      name: _Paths.CAMERA,
-      page: () => const CameraView(),
-      binding: CameraBinding(),
     ),
   ];
 }

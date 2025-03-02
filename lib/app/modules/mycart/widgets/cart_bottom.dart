@@ -24,7 +24,7 @@ class CartBottom extends GetView<MycartController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Obx(() => Text(
-                'Total: \$${controller.total.toStringAsFixed(2)}',
+                'Total: \$${controller.totalAmount.toStringAsFixed(2)}',
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,

@@ -12,7 +12,7 @@ class MycartView extends GetView<MycartController> {
 
   @override
   Widget build(BuildContext context) {
-    var items = controller.items;
+    var items = controller.cartItems;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,

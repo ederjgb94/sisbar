@@ -7,7 +7,6 @@ abstract class Routes {
   static const TEST = _Paths.TEST;
   static const MYCART = _Paths.MYCART;
   static const CALCULATOR = _Paths.CALCULATOR;
-  static const CAMERA = _Paths.CAMERA;
 }
 
 abstract class _Paths {
@@ -16,5 +15,4 @@ abstract class _Paths {
   static const TEST = '/test';
   static const MYCART = '/mycart';
   static const CALCULATOR = '/calculator';
-  static const CAMERA = '/camera';
 }

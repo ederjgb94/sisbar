@@ -1,0 +1,2 @@
+/Users/ederjahirgonzalezbravo/proyectos/sisbar/android/app/.cxx/RelWithDebInfo/x591n533/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/ederjahirgonzalezbravo/proyectos/sisbar/android/app/.cxx/RelWithDebInfo/x591n533/armeabi-v7a/CMakeFiles/rebuild_cache.dir

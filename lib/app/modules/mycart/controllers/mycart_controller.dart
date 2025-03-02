@@ -4,12 +4,16 @@ import 'package:sisbar/app/data/factories/product_factory.dart';
 import 'package:sisbar/app/data/models/product.dart';
 import 'package:sisbar/app/widgets/confirm_dialog.dart';
 
-import '../../../routes/app_pages.dart';
+import '../../../data/services/camera_service.dart';
+import '../../../data/services/product_service.dart';
 
 class MycartController extends GetxController {
-  var total = 0.0.obs;
-  var items = <CartItem>[].obs;
-  Rx<CartItem?> selectedCartItem = Rx<CartItem?>(null);
+  var cameraService = Get.find<CameraService>();
+  var productService = Get.find<ProductService>();
+  var selectedCartItem = Rx<CartItem?>(null);
+  var cartItems = <CartItem>[].obs;
+  var totalAmount = 0.0.obs;
+  var isCameraActive = false.obs;
 
   @override
   void onInit() {
@@ -21,7 +25,7 @@ class MycartController extends GetxController {
 
   void updatePrice(double newPrice, CartItem item) {
     item.product.price = newPrice;
-    items.refresh();
+    cartItems.refresh();
   }
 
   void selectedCarItemIncrement() {
@@ -59,17 +63,17 @@ class MycartController extends GetxController {
       incrementQuantity(existingItem);
     } else {
       var newItem = CartItem(product);
-      items.add(newItem);
-      total.value += product.price;
+      cartItems.add(newItem);
+      totalAmount.value += product.price;
     }
   }
 
-  CartItem? findProductInCart(Product product) => items.firstWhereOrNull(
+  CartItem? findProductInCart(Product product) => cartItems.firstWhereOrNull(
         (element) => element.product.code == product.code,
       );
 
   void checkout() {
-    total.value = 0.0;
+    totalAmount.value = 0.0;
     Get.snackbar('Compra realizada', 'Gracias por su compra');
   }
 
@@ -90,27 +94,27 @@ class MycartController extends GetxController {
   }
 
   void clearCart() {
-    items.clear();
-    total.value = 0.0;
+    cartItems.clear();
+    totalAmount.value = 0.0;
   }
 
   void decrementQuantity(CartItem item) {
     if (item.quantity.value == 1) return;
     item.quantity -= 1;
     if (item.quantity.value == 0) {
-      items.remove(item);
+      cartItems.remove(item);
       selectedCartItem.value = null;
     }
-    total.value -= item.product.price;
-    total.value = total.value.abs();
+    totalAmount.value -= item.product.price;
+    totalAmount.value = totalAmount.value.abs();
   }
 
   void incrementQuantity(CartItem item) {
     item.quantity += 1;
     if (item.quantity.value == 1) {
-      items.add(item);
+      cartItems.add(item);
     } else {
-      total.value += item.product.price;
+      totalAmount.value += item.product.price;
     }
   }
 
@@ -120,17 +124,19 @@ class MycartController extends GetxController {
 
   void removeSelectedItem() {
     if (selectedCartItem.value != null) {
-      items.remove(selectedCartItem.value);
-      total.value -= selectedCartItem.value!.product.price *
+      cartItems.remove(selectedCartItem.value);
+      totalAmount.value -= selectedCartItem.value!.product.price *
           selectedCartItem.value!.quantity.value;
 
-      total.value = total.value.abs();
+      totalAmount.value = totalAmount.value.abs();
       selectedCartItem.value = null;
     }
   }
 
-  void getProductByCamera() {
-    Get.toNamed(Routes.CAMERA);
+  void getProductByCamera() async {
+    var code = await cameraService.scan();
+    var product = productService.readProductByCode(code);
+    print('mycode: $code');
   }
 }
 

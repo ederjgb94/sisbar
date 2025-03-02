@@ -9,82 +9,136 @@ class CartFloatingButtonsWidget extends GetView<MycartController> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          vertical: 5,
-          horizontal: 20,
-        ),
-        color: Colors.transparent,
-        width: double.infinity,
-        child: Wrap(
-          alignment: WrapAlignment.spaceBetween,
-          runSpacing: 10,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 10,
-              children: [
-                CartFloatingButton(
-                  icon: Icons.delete,
-                  color: Colors.grey[600],
-                  onPressed: () {
-                    controller.startRemoveSelectedItem();
-                  },
-                ),
-                CartFloatingButton(
-                  icon: Icons.remove,
-                  color: Colors.teal[500],
-                  onPressed: () {
-                    controller.selectedCarItemDecrement();
-                  },
-                ),
-                CartFloatingButton(
-                  icon: Icons.add,
-                  color: Colors.teal[500],
-                  onPressed: () {
-                    controller.selectedCarItemIncrement();
-                  },
-                ),
-                CartFloatingButton(
-                  icon: Icons.edit,
-                  color: Colors.teal[500],
-                  onPressed: () async {
-                    if (controller.selectedCartItem.value != null) {
-                      var item = controller.selectedCartItem.value!;
-                      double? price = await editPriceDialog(
-                        name: item.product.name,
-                        price: item.product.price,
-                      );
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(
+            vertical: 5,
+            horizontal: 20,
+          ),
+          color: Colors.transparent,
+          width: double.infinity,
+          child: Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            runSpacing: 10,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 10,
+                children: [
+                  CartFloatingButton(
+                    icon: Icons.delete,
+                    color: Colors.grey[600],
+                    onPressed: () {
+                      controller.startRemoveSelectedItem();
+                    },
+                  ),
+                  CartFloatingButton(
+                    icon: Icons.remove,
+                    color: Colors.teal[500],
+                    onPressed: () {
+                      controller.selectedCarItemDecrement();
+                    },
+                  ),
+                  CartFloatingButton(
+                    icon: Icons.add,
+                    color: Colors.teal[500],
+                    onPressed: () {
+                      controller.selectedCarItemIncrement();
+                    },
+                  ),
+                  CartFloatingButton(
+                    icon: Icons.edit,
+                    color: Colors.teal[500],
+                    onPressed: () async {
+                      if (controller.selectedCartItem.value != null) {
+                        var item = controller.selectedCartItem.value!;
+                        double? price = await editPriceDialog(
+                          name: item.product.name,
+                          price: item.product.price,
+                        );
 
-                      controller.updatePrice(price, item);
-                    }
-                  },
-                ),
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              spacing: 10,
-              children: [
-                CartFloatingButton(
-                  icon: Icons.search,
-                  color: Colors.indigo[400],
-                  onPressed: () {},
-                ),
-                CartFloatingButton(
-                  icon: Icons.camera_alt,
-                  color: Colors.indigo[400],
-                  onPressed: () {
-                    controller.getProductByCamera();
-                  },
-                ),
-              ],
-            ),
-          ],
+                        controller.updatePrice(price, item);
+                      }
+                    },
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 10,
+                children: [
+                  CartFloatingButton(
+                    icon: Icons.search,
+                    color: Colors.indigo[400],
+                    onPressed: () {},
+                  ),
+                  CartFloatingButton(
+                    icon: Icons.camera_alt,
+                    color: Colors.indigo[400],
+                    onPressed: () {
+                      controller.isCameraActive.toggle();
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
+        Obx(
+          () => Visibility(
+            visible: controller.isCameraActive.value,
+            child: Container(
+              height: 350,
+              margin: EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: controller.cameraService.openScanner(),
+              ),
+            ),
+          ),
+        ),
+
+        //poner un boton para cerrar la camara
+        Obx(
+          () => Positioned(
+            top: 0,
+            right: 0,
+            child: Visibility(
+              visible: controller.isCameraActive.value,
+              child: Container(
+                margin: EdgeInsets.only(
+                  bottom: 200,
+                  right: 20,
+                ),
+                child: FloatingActionButton(
+                  heroTag: UniqueKey(),
+                  elevation: 0,
+                  backgroundColor: Colors.red,
+                  onPressed: () {
+                    controller.isCameraActive.toggle();
+                  },
+                  child: Icon(
+                    //pon el icono de cerrar camara que no sea Icons.close
+                    Icons.no_photography,
+                    color: Colors.white,
+                    size: 35,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
