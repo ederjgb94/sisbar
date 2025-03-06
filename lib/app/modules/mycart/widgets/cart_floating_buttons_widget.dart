@@ -76,12 +76,18 @@ class CartFloatingButtonsWidget extends GetView<MycartController> {
                     color: Colors.indigo[400],
                     onPressed: () {},
                   ),
-                  CartFloatingButton(
-                    icon: Icons.camera_alt,
-                    color: Colors.indigo[400],
-                    onPressed: () {
-                      controller.isCameraActive.toggle();
-                    },
+                  Obx(
+                    () => CartFloatingButton(
+                      icon: controller.isCameraActive.value
+                          ? Icons.no_photography
+                          : Icons.camera_alt,
+                      color: controller.isCameraActive.value
+                          ? Colors.red
+                          : Colors.indigo[400],
+                      onPressed: () {
+                        controller.isCameraActive.toggle();
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -92,9 +98,11 @@ class CartFloatingButtonsWidget extends GetView<MycartController> {
           () => Visibility(
             visible: controller.isCameraActive.value,
             child: Container(
-              height: 350,
-              margin: EdgeInsets.symmetric(
-                horizontal: 10,
+              height: 250,
+              margin: EdgeInsets.only(
+                bottom: 75,
+                right: 10,
+                left: 10,
               ),
               decoration: BoxDecoration(
                 color: Colors.black,
@@ -109,35 +117,35 @@ class CartFloatingButtonsWidget extends GetView<MycartController> {
         ),
 
         //poner un boton para cerrar la camara
-        Obx(
-          () => Positioned(
-            top: 0,
-            right: 0,
-            child: Visibility(
-              visible: controller.isCameraActive.value,
-              child: Container(
-                margin: EdgeInsets.only(
-                  bottom: 200,
-                  right: 20,
-                ),
-                child: FloatingActionButton(
-                  heroTag: UniqueKey(),
-                  elevation: 0,
-                  backgroundColor: Colors.red,
-                  onPressed: () {
-                    controller.isCameraActive.toggle();
-                  },
-                  child: Icon(
-                    //pon el icono de cerrar camara que no sea Icons.close
-                    Icons.no_photography,
-                    color: Colors.white,
-                    size: 35,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
+        // Obx(
+        //   () => Positioned(
+        //     top: 0,
+        //     right: 0,
+        //     child: Visibility(
+        //       visible: controller.isCameraActive.value,
+        //       child: Container(
+        //         margin: EdgeInsets.only(
+        //           bottom: 200,
+        //           right: 20,
+        //         ),
+        //         child: FloatingActionButton(
+        //           heroTag: UniqueKey(),
+        //           elevation: 0,
+        //           backgroundColor: Colors.red,
+        //           onPressed: () {
+        //             controller.isCameraActive.toggle();
+        //           },
+        //           child: Icon(
+        //             //pon el icono de cerrar camara que no sea Icons.close
+        //             Icons.no_photography,
+        //             color: Colors.white,
+        //             size: 35,
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

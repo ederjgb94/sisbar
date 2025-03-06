@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sisbar/app/data/factories/product_factory.dart';
 import 'package:sisbar/app/data/models/product.dart';
@@ -14,12 +15,27 @@ class MycartController extends GetxController {
   var cartItems = <CartItem>[].obs;
   var totalAmount = 0.0.obs;
   var isCameraActive = false.obs;
+  var barcodeBuffer = '';
 
   @override
   void onInit() {
     super.onInit();
     if (kDebugMode) {
       ProductFactory(addItem: addProduct).addProducts(10);
+    }
+  }
+
+  void getKeyDownEvent(KeyEvent event) {
+    if (event.logicalKey == LogicalKeyboardKey.enter) {
+      if (barcodeBuffer.isNotEmpty) {
+        var product = productService.readProductByCode(barcodeBuffer);
+        addProduct(
+          product,
+        );
+        barcodeBuffer = '';
+      }
+    } else if (event.character != null && event.character!.isNotEmpty) {
+      barcodeBuffer += event.character!;
     }
   }
 
@@ -41,22 +57,8 @@ class MycartController extends GetxController {
   }
 
   void addProduct(
-    String code,
-    String name,
-    double price,
-    String imageUrl,
-    String category,
-    CodeType codeType,
+    Product product,
   ) {
-    var product = Product(
-      code: code,
-      name: name,
-      price: price,
-      imageUrl: imageUrl,
-      category: category,
-      codeType: codeType,
-    );
-
     CartItem? existingItem = findProductInCart(product);
 
     if (existingItem != null) {
@@ -78,6 +80,7 @@ class MycartController extends GetxController {
   }
 
   void startRemoveSelectedItem() {
+    if (selectedCartItem.value == null) return;
     confirmDialog(
       content: selectedCartItem.value!.product.name,
       title: '¿Quitamos este producto?',
@@ -123,14 +126,14 @@ class MycartController extends GetxController {
   }
 
   void removeSelectedItem() {
-    if (selectedCartItem.value != null) {
-      cartItems.remove(selectedCartItem.value);
-      totalAmount.value -= selectedCartItem.value!.product.price *
-          selectedCartItem.value!.quantity.value;
+    if (selectedCartItem.value == null) return;
 
-      totalAmount.value = totalAmount.value.abs();
-      selectedCartItem.value = null;
-    }
+    cartItems.remove(selectedCartItem.value);
+    totalAmount.value -= selectedCartItem.value!.product.price *
+        selectedCartItem.value!.quantity.value;
+
+    totalAmount.value = totalAmount.value.abs();
+    selectedCartItem.value = null;
   }
 
   void getProductByCamera() async {

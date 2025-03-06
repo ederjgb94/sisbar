@@ -2,7 +2,7 @@ import '../models/product.dart';
 import 'base_factory.dart';
 
 class ProductFactory extends Factory<Product> {
-  final Function? addItem;
+  final Function(Product)? addItem;
 
   ProductFactory({
     this.addItem,
@@ -33,14 +33,7 @@ class ProductFactory extends Factory<Product> {
 
   void addProducts(int count) {
     createMany(count).forEach((product) {
-      addItem!(
-        product.code,
-        product.name,
-        product.price,
-        product.imageUrl,
-        product.category,
-        product.codeType,
-      );
+      addItem!(product);
     });
   }
 
