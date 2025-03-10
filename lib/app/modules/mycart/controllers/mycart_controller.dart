@@ -29,9 +29,9 @@ class MycartController extends GetxController {
     if (event.logicalKey == LogicalKeyboardKey.enter) {
       if (barcodeBuffer.isNotEmpty) {
         var product = productService.readProductByCode(barcodeBuffer);
-        addProduct(
-          product,
-        );
+        if (product != null) {
+          addProduct(product);
+        }
         barcodeBuffer = '';
       }
     } else if (event.character != null && event.character!.isNotEmpty) {

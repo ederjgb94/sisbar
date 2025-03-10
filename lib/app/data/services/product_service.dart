@@ -6,7 +6,7 @@ import '../repositories/product_repository.dart';
 class ProductService extends GetxService {
   var productRepository = Get.find<ProductRepository>();
 
-  Product readProductByCode(String code) {
+  Product? readProductByCode(String code) {
     return productRepository.getProduct(code);
   }
 }
