@@ -69,6 +69,7 @@ Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para má
 ## 📞 Contacto
 
 Eder J. Bravo - [ederjgb94@gmail.com](mailto:ederjgb94@gmail.com)
+
 Ana H. Lara - [analara.stay@gmail.com](mailto:analara.stay@gmail.com)
 
 Enlace del proyecto: [https://github.com/ederjgb94/sisbar](https://github.com/ederjgb94/sisbar)
