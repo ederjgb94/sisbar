@@ -65,8 +65,19 @@ class MycartController extends GetxController {
       incrementQuantity(existingItem);
     } else {
       var newItem = CartItem(product);
-      cartItems.add(newItem);
+      //añade al inicio
+      cartItems.insert(0, newItem);
       totalAmount.value += product.price;
+    }
+
+    selectedCartItem.value = existingItem;
+    setCartItemInTop();
+  }
+
+  setCartItemInTop() {
+    if (selectedCartItem.value != null) {
+      cartItems.remove(selectedCartItem.value);
+      cartItems.insert(0, selectedCartItem.value!);
     }
   }
 
@@ -136,10 +147,11 @@ class MycartController extends GetxController {
     selectedCartItem.value = null;
   }
 
-  void getProductByCamera() async {
-    var code = await cameraService.scan();
+  void addProductByCode(String code) async {
     var product = productService.readProductByCode(code);
-    print('mycode: $code');
+    if (product != null) {
+      addProduct(product);
+    }
   }
 }
 
