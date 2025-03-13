@@ -1,15 +1,13 @@
-# SISBAR - Sistema de Gestión para Bares
+# SISBAR - Sistema de Gestión para tiendas de abarrotes
 
-SISBAR es una aplicación de Flutter diseñada para modernizar y optimizar la gestión de bares, restaurantes y establecimientos similares.
+SISBAR es una aplicación de Flutter diseñada para modernizar y optimizar la gestión de tiendas clásicas mexicanas.
 
 ## 🚀 Características
 
 - **Gestión de inventario**: Control de stock de bebidas e insumos
-- **Sistema de órdenes**: Toma de pedidos digital y seguimiento en tiempo real
-- **Punto de venta**: Procesamiento de pagos rápido y eficiente
-- **Reportes analíticos**: Estadísticas de ventas, productos populares y horas pico
-- **Gestión de personal**: Control de horarios y rendimiento de empleados
-- **Fidelización de clientes**: Sistema de recompensas y promociones personalizadas
+- **Punto de venta**: Gestión y control mejorado para tiendas de abarrotes
+- **Scanner con camara**: Detección de QR y códigos de barras por camara
+- **Soporte de lectores**: Detecta entradas de lectores externos
 
 ## 🛠️ Instalación
 
